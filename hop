@@ -1,0 +1,69 @@
+local HttpService = game:GetService("HttpService")
+local TeleportService = game:GetService("TeleportService")
+local Players = game:GetService("Players")
+local Player = Players.LocalPlayer
+local placeId = game.PlaceId
+
+-- Create a simple GUI for input
+local screenGui = Instance.new("ScreenGui")
+screenGui.Parent = Player:WaitForChild("PlayerGui")
+
+local textBox = Instance.new("TextBox")
+textBox.Size = UDim2.new(0, 200, 0, 50)
+textBox.Position = UDim2.new(0.5, -100, 0.5, -25)
+textBox.PlaceholderText = "Enter target UserId"
+textBox.Parent = screenGui
+textBox.ClearTextOnFocus = true
+
+local button = Instance.new("TextButton")
+button.Size = UDim2.new(0, 100, 0, 50)
+button.Position = UDim2.new(0.5, -50, 0.5, 50)
+button.Text = "Teleport"
+button.Parent = screenGui
+
+local function getPublicServers(cursor)
+    local url = "https://games.roblox.com/v1/games/"..placeId.."/servers/Public?limit=100"
+    if cursor then
+        url = url .. "&cursor=" .. cursor
+    end
+    local success, response = pcall(function()
+        return HttpService:GetAsync(url)
+    end)
+    if success then
+        return HttpService:JSONDecode(response)
+    else
+        warn("Failed to fetch servers")
+        return nil
+    end
+end
+
+local function findServerWithPlayer(targetUserId)
+    local cursor
+    repeat
+        local data = getPublicServers(cursor)
+        if not data then break end
+        for _, server in ipairs(data.data) do
+            for _, userId in ipairs(server.playing) do
+                if userId == targetUserId then
+                    return server.id -- JobId
+                end
+            end
+        end
+        cursor = data.nextPageCursor
+    until not cursor
+    return nil
+end
+
+button.MouseButton1Click:Connect(function()
+    local input = tonumber(textBox.Text)
+    if input then
+        local jobId = findServerWithPlayer(input)
+        if jobId then
+            TeleportService:TeleportToPlaceInstance(placeId, jobId, Player)
+        else
+            warn("Target player not found in any public server")
+        end
+    else
+        warn("Please enter a valid numeric UserId")
+    end
+end)
