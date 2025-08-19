@@ -46,6 +46,14 @@ end
 
 -- Function to search for the target player
 local function findServerWithPlayer(targetUserId)
+    -- First, check current server
+    for _, p in ipairs(Players:GetPlayers()) do
+        if p.UserId == targetUserId then
+            label.Text = "Target already in this server!"
+            return nil
+        end
+    end
+
     local cursor
     local serversChecked = 0
     repeat
@@ -55,15 +63,16 @@ local function findServerWithPlayer(targetUserId)
         for _, server in ipairs(data.data) do
             serversChecked += 1
             label.Text = "Servers checked: "..serversChecked
+
             for _, userId in ipairs(server.playing) do
                 if userId == targetUserId then
-                    return server.id
+                    return server.id -- JobId found
                 end
             end
         end
 
         cursor = data.nextPageCursor
-        wait(0.1) -- avoid spamming requests
+        wait(0.2) -- avoid hitting rate limits
     until not cursor
 
     return nil
@@ -77,6 +86,7 @@ button.MouseButton1Click:Connect(function()
         local jobId = findServerWithPlayer(input)
         if jobId then
             label.Text = "Target found! Teleporting..."
+            wait(1) -- brief pause before teleport
             TeleportService:TeleportToPlaceInstance(placeId, jobId, Player)
         else
             label.Text = "Target not found in public servers."
