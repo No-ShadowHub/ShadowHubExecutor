@@ -4,23 +4,30 @@ local Players = game:GetService("Players")
 local Player = Players.LocalPlayer
 local placeId = game.PlaceId
 
--- Create a simple GUI for input
+-- GUI setup
 local screenGui = Instance.new("ScreenGui")
 screenGui.Parent = Player:WaitForChild("PlayerGui")
 
 local textBox = Instance.new("TextBox")
 textBox.Size = UDim2.new(0, 200, 0, 50)
-textBox.Position = UDim2.new(0.5, -100, 0.5, -25)
+textBox.Position = UDim2.new(0.5, -100, 0.4, -25)
 textBox.PlaceholderText = "Enter target UserId"
 textBox.Parent = screenGui
 textBox.ClearTextOnFocus = true
 
 local button = Instance.new("TextButton")
 button.Size = UDim2.new(0, 100, 0, 50)
-button.Position = UDim2.new(0.5, -50, 0.5, 50)
-button.Text = "Teleport"
+button.Position = UDim2.new(0.5, -50, 0.5, 0)
+button.Text = "Start Search"
 button.Parent = screenGui
 
+local label = Instance.new("TextLabel")
+label.Size = UDim2.new(0, 300, 0, 50)
+label.Position = UDim2.new(0.5, -150, 0.6, 0)
+label.Text = "Servers checked: 0"
+label.Parent = screenGui
+
+-- Function to fetch public servers
 local function getPublicServers(cursor)
     local url = "https://games.roblox.com/v1/games/"..placeId.."/servers/Public?limit=100"
     if cursor then
@@ -37,33 +44,44 @@ local function getPublicServers(cursor)
     end
 end
 
+-- Function to search for the target player
 local function findServerWithPlayer(targetUserId)
     local cursor
+    local serversChecked = 0
     repeat
         local data = getPublicServers(cursor)
         if not data then break end
+
         for _, server in ipairs(data.data) do
+            serversChecked += 1
+            label.Text = "Servers checked: "..serversChecked
             for _, userId in ipairs(server.playing) do
                 if userId == targetUserId then
-                    return server.id -- JobId
+                    return server.id
                 end
             end
         end
+
         cursor = data.nextPageCursor
+        wait(0.1) -- avoid spamming requests
     until not cursor
+
     return nil
 end
 
+-- Button click
 button.MouseButton1Click:Connect(function()
     local input = tonumber(textBox.Text)
     if input then
+        label.Text = "Searching..."
         local jobId = findServerWithPlayer(input)
         if jobId then
+            label.Text = "Target found! Teleporting..."
             TeleportService:TeleportToPlaceInstance(placeId, jobId, Player)
         else
-            warn("Target player not found in any public server")
+            label.Text = "Target not found in public servers."
         end
     else
-        warn("Please enter a valid numeric UserId")
+        label.Text = "Please enter a valid numeric UserId."
     end
 end)
