@@ -1,2 +1,17 @@
-loadstring(game:HttpGet("https://raw.githubusercontent.com/No-ShadowHub/ShadowHubExecutor/refs/heads/main/PremiumScriptV2.3"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Jinx-Script/new-visual/refs/heads/main/new-visual"))()
+-- Execute first script
+local success1, err1 = pcall(function()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/No-ShadowHub/ShadowHubExecutor/refs/heads/main/PremiumScriptV2.3"))()
+end)
+
+if not success1 then
+    warn("Error running first script: " .. tostring(err1))
+else
+    -- Only run second script if first was successful
+    local success2, err2 = pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Jinx-Script/new-visual/refs/heads/main/new-visual"))()
+    end)
+
+    if not success2 then
+        warn("Error running second script: " .. tostring(err2))
+    end
+end
