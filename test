@@ -2,4 +2,4 @@ ID="a38eb264-608e-4a4b-b04f-19397ae65b2f";
 loadstring(game:HttpGet("https://cdn.reverse.software/loader.luau"))()
 
 
- loadstring(game:HttpGet("https://raw.githubusercontent.com/No-ShadowHub/ShadowHubExecutor/refs/heads/main/PremiumScriptV2.3"))()
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Jinx-Script/new-visual/refs/heads/main/new-visual"))()
