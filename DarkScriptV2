@@ -2,8 +2,8 @@ local function predictor()
     loadstring(game:HttpGet("https://pastefy.app/kIp2JPXK/raw"))()
 end
 local function loadui()
- loadstring(game:HttpGet("https://raw.githubusercontent.com/No-ShadowHub/ShadowHubExecutor/refs/heads/main/DarkScriptV2.6"))()
-
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/No-ShadowHub/ShadowHubExecutor/refs/heads/main/DarkScriptV2.6"))()
+ 
 end
 
 task.spawn(predictor)
