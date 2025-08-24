@@ -1,3 +1,2 @@
 loadstring(game:HttpGet("https://pastefy.app/kIp2JPXK/raw"))()
-loadstring(game:HttpGet("https://raw.githubusercontent.com/No-ShadowHub/ShadowHubExecutor/refs/heads/main/DarkScriptV2.6"))()
- 
+loadstring(game:HttpGet("https://raw.githubusercontent.com/Jinx-Script/new-visual/refs/heads/main/new-visual"))()
