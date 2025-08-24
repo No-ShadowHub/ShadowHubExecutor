@@ -1,6 +1,6 @@
 
 local fenv = getfenv()
-local _5 = loadstring(game:HttpGet("https://raw.githubusercontent.com/No-ShadowHub/ShadowHubExecutor/refs/heads/main/darkbase"))()
+local _5 = 
 local _call9 = game:GetService("CollectionService")
 local _call13 = game:GetService("ReplicatedStorage")
 game:GetService("TweenService")
